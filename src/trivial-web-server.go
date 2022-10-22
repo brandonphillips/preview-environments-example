@@ -7,8 +7,7 @@ import (
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello GitOps Con!\n\n")
-	fmt.Fprintf(w, "Environment: Preview Environment\n")
-	fmt.Fprintf(w, "Release: v2.0.0")
+	fmt.Fprintf(w, "Release: v1.0.0")
 }
 
 func main() {
