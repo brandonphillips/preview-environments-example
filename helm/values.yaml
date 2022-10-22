@@ -1,0 +1,13 @@
+replicaCount: 1
+name: trivial-go-web-app
+env: staging
+namespace: staging
+image:
+  name: webserver-simple
+  tag: '0653103937c82a8fbc5ad8861d513187be22fb03'
+  pullPolicy: IfNotPresent
+service:
+  type: LoadBalancer
+  port: 8418
+  targetPort: 8080
+  portName: http

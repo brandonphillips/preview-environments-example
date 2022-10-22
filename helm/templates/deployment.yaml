@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-deployment
+  annotations:
+    codefresh.io/app: simple-go-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.image.name }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "fleatbnp/webserver-simple:{{ default .Chart.Version .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+      imagePullSecrets:
+        - name: regcred
