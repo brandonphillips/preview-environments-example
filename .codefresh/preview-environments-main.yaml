@@ -1,0 +1,49 @@
+version: "1.0"
+
+stages:
+  - "clone"
+  - "build"
+  - "update-tag"
+
+steps:
+  clone:
+    title: "Cloning feature branch from repository"
+    type: "git-clone"
+    repo: "brandonphillips/preview-environments-example"
+    revision: "main"
+    git: "github-2022"
+    stage: "clone"
+
+  build:
+    title: "Building Docker image"
+    type: "build"
+    image_name: "fleatbnp/webserver-simple"
+    working_directory: "${{clone}}/src"
+    tag: "${{CF_REVISION}}"
+    dockerfile: "Dockerfile"
+    stage: "build"
+    
+  update_image_tag:
+    title: "Update k8s canary manifest"
+    type: "freestyle" # Run any command
+    image: "mikefarah/yq"
+    working_directory: "${{clone}}/helm"
+    commands:
+      - cat values.yaml
+      - yq -i '.image.tag = "${{CF_REVISION}}"' values.yaml
+      - cf_export SKIP_PUSH=false
+      - cat values.yaml
+    stage: "update-tag"
+      
+  commit_and_push_image_tag:
+     title: Update helm values image tag
+     type: dimag/git-commit
+     working_directory: "${{clone}}"
+     arguments:
+       GITHUB_REPO_OWNER: 'brandonphillips'
+       GITHUB_REPO_NAME: 'preview-environments-example'
+       GIT_PROVIDER_NAME: 'github-2022'
+       COMMIT_MESSAGE: "update image tag to fleatbnp/webserver-simple:${{CF_SHORT_REVISION}}"
+       WORKING_DIRECTORY: '/codefresh/volume/preview-environments-example'
+     stage: "update-tag"
+

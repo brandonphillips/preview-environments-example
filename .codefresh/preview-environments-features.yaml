@@ -1,0 +1,24 @@
+version: "1.0"
+
+stages:
+  - "clone"
+  - "build"
+
+steps:
+  clone:
+    title: "Cloning feature branch from repository"
+    type: "git-clone"
+    repo: "brandonphillips/preview-environments-example"
+    revision: "${{CF_BRANCH}}"
+    git: "github-2022"
+    stage: "clone"
+
+  build:
+    title: "Building Docker image"
+    type: "build"
+    image_name: "fleatbnp/webserver-simple"
+    working_directory: "${{clone}}/src"
+    tag: "${{CF_REVISION}}"
+    dockerfile: "Dockerfile"
+    stage: "build"
+
