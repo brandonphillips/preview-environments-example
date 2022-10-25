@@ -13,3 +13,12 @@ argocd app create base-app \
     --dest-namespace staging
 
 # Create the ApplicationSet with the Argo CD CLI
+argocd app create appset \
+    --project default \
+    --sync-policy automatic \
+    --auto-prune --self-heal \
+    --repo "https://github.com/brandonphillips/preview-environments-example" \
+    --revision HEAD \
+    --path appset \
+    --dest-name in-cluster \
+    --dest-namespace argocd
