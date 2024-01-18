@@ -7,11 +7,11 @@ argocd app create base-app \
     --project default \
     --sync-policy automatic \
     --auto-prune --self-heal \
-    --repo "https://github.com/brandonphillips/preview-environments-example" \
+    --repo "https://github.com/IonOlaruAnant/preview-environments-example.git" \
     --revision HEAD \
     --path helm \
     --dest-name in-cluster \
-    --dest-namespace staging
+    --dest-namespace apps-staging
 ```
 
 # Create the ApplicationSet with the Argo CD CLI
@@ -20,7 +20,7 @@ argocd app create appset \
     --project default \
     --sync-policy automatic \
     --auto-prune --self-heal \
-    --repo "https://github.com/brandonphillips/preview-environments-example" \
+    --repo "https://github.com/IonOlaruAnant/preview-environments-example.git" \
     --revision HEAD \
     --path appset \
     --dest-name in-cluster \

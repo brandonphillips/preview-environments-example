@@ -1,13 +1,13 @@
 replicaCount: 1
-name: trivial-go-web-app
-env: staging
-namespace: staging
+name: go-webserver
+# env: apps-staging
+namespace: apps-preview
 image:
-  name: webserver-simple
-  tag: 'a9f44751c23820745efef75e7a053b3ed8da6f8a'
+  name: iondockeranant/go-webserver
+  tag: '0.0.1'
   pullPolicy: IfNotPresent
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 8418
   targetPort: 8080
   portName: http
