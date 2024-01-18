@@ -3,8 +3,8 @@ name: go-webserver
 # env: apps-staging
 namespace: apps-preview
 image:
-  name: iondockeranant/go-webserver
-  tag: '0.0.1'
+  name: "iondockeranant/go-webserver"
+  tag: "0.0.1"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
