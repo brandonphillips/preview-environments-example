@@ -2,6 +2,8 @@ replicaCount: 1
 name: go-webserver
 # env: apps-staging
 namespace: apps-preview
+container:
+  name: go-webserver
 image:
   name: "iondockeranant/go-webserver"
   tag: "0.0.1"
